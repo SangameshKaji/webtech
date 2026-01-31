@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>6x6 Sudoku Solver</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        td {
+            border: 1px solid black;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+        }
+
+        input {
+            width: 38px;
+            height: 38px;
+            text-align: center;
+            font-size: 18px;
+            border: none;
+        }
+
+        .right {
+            border-right: 3px solid black;
+        }
+
+        .bottom {
+            border-bottom: 3px solid black;
+        }
+
+        button {
+            display: block;
+            margin: 15px auto;
+            padding: 8px 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 style="text-align:center;">6×6 Sudoku (Sample)</h2>
+    <table>
+        <!-- Row 1 -->
+        <tr>
+            <td><input value="1"></td>
+            <td><input></td>
+            <td class="right"><input></td>
+            <td><input value="4"></td>
+            <td><input></td>
+            <td><input></td>
+        </tr>
+        <!-- Row 2 -->
+        <tr class="bottom">
+            <td><input></td>
+            <td><input value="5"></td>
+            <td class="right"><input></td>
+            <td><input></td>
+            <td><input value="6"></td>
+            <td><input></td>
+        </tr>
+        <!-- Row 3 -->
+        <tr>
+            <td><input></td>
+            <td><input></td>
+            <td class="right"><input value="4"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input value="1"></td>
+        </tr>
+        <!-- Row 4 -->
+        <tr class="bottom">
+            <td><input value="5"></td>
+            <td><input></td>
+            <td class="right"><input></td>
+            <td><input></td>
+            <td><input value="3"></td>
+            <td><input></td>
+        </tr>
+        <!-- Row 5 -->
+        <tr>
+            <td><input></td>
+            <td><input value="6"></td>
+            <td class="right"><input></td>
+            <td><input value="2"></td>
+            <td><input></td>
+            <td><input></td>
+        </tr>
+
+        <!-- Row 6 -->
+        <tr>
+            <td><input></td>
+            <td><input></td>
+            <td class="right"><input value="3"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input value="5"></td>
+        </tr>
+    </table>
+    <button onclick="solveSudoku()">Solve</button>
+    <script>
+        function getGrid() {
+            let inputs = document.querySelectorAll("input");
+            let grid = [];
+            for (let i = 0; i < 6; i++) {
+                grid[i] = [];
+                for (let j = 0; j < 6; j++) {
+                    let val = inputs[i * 6 + j].value;
+                    grid[i][j] = val === "" ? 0 : parseInt(val);
+                }
+            }
+            return grid;
+        }
+        function setGrid(grid) {
+            let inputs = document.querySelectorAll("input");
+            for (let i = 0; i < 6; i++) {
+                for (let j = 0; j < 6; j++) {
+                    inputs[i * 6 + j].value = grid[i][j];
+                }
+            }
+        }
+        function isSafe(grid, row, col, num) {
+            for (let x = 0; x < 6; x++) {
+                if (grid[row][x] === num || grid[x][col] === num)
+                    return false;
+            }
+            let startRow = row - row % 2;
+            let startCol = col - col % 3;
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (grid[startRow + i][startCol + j] === num)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+        function solve(grid) {
+            for (let row = 0; row < 6; row++) {
+                for (let col = 0; col < 6; col++) {
+                    if (grid[row][col] === 0) {
+                        for (let num = 1; num <= 6; num++) {
+                            if (isSafe(grid, row, col, num)) {
+                                grid[row][col] = num;
+                                if (solve(grid)) return true;
+                                grid[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        function solveSudoku() {
+            let grid = getGrid();
+            if (solve(grid)) {
+                setGrid(grid);
+            } else {
+                alert("No solution exists");
+            }
+        }
+    </script>
+</body>
+
+</html>
