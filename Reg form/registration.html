@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        .container {
+            width: 480px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px;
+            vertical-align: top;
+        }
+
+        input,
+        select {
+            width: 230px;
+            padding: 5px;
+        }
+
+        .inline {
+            width: auto;
+        }
+
+        .error {
+            display: block;
+            color: red;
+            font-size: 12px;
+            margin-left: 120px;
+        }
+
+        .buttons {
+            margin-left: 120px;
+        }
+
+        button {
+            padding: 6px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Student Registration Form</h2>
+
+        <form id="registrationForm">
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="name">
+                <span class="error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="text" id="email">
+                <span class="error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" id="password">
+                <span class="error" id="passwordError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" id="age">
+                <span class="error" id="ageError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <input type="radio" name="gender" value="Male" class="inline"> Male
+                <input type="radio" name="gender" value="Female" class="inline"> Female
+                <span class="error" id="genderError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Skills:</label>
+                <input type="checkbox" value="HTML" class="inline skill"> HTML
+                <input type="checkbox" value="CSS" class="inline skill"> CSS
+                <input type="checkbox" value="JavaScript" class="inline skill"> JS
+                <span class="error" id="skillError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Course:</label>
+                <select id="course">
+                    <option value="">Select Course</option>
+                    <option>CSE</option>
+                    <option>ECE</option>
+                    <option>EEE</option>
+                    <option>IT</option>
+                </select>
+                <span class="error" id="courseError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Resume:</label>
+                <input type="file" id="resume">
+                <span class="error" id="resumeError"></span>
+            </div>
+
+            <div class="buttons">
+                <button type="submit">Register</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("name").addEventListener("blur", function () {
+            if (this.value !== "") {
+                this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+            }
+        });
+
+        document.getElementById("registrationForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let age = document.getElementById("age").value;
+            let course = document.getElementById("course").value;
+            let resume = document.getElementById("resume").value;
+
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let skills = Array.from(document.querySelectorAll(".skill:checked")).map(s => s.value);
+
+            let valid = true;
+            document.querySelectorAll(".error").forEach(e => e.innerText = "");
+            document.getElementById("result").innerHTML = "";
+
+            if (name === "") {
+                nameError.innerText = "Name is required";
+                valid = false;
+            }
+
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.innerText = "Invalid email";
+                valid = false;
+            }
+
+            let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+            if (!passwordPattern.test(password)) {
+                passwordError.innerText = "Strong password required";
+                valid = false;
+            }
+
+            if (age < 18) {
+                ageError.innerText = "Age must be 18 or above";
+                valid = false;
+            }
+
+            if (!gender) {
+                genderError.innerText = "Select gender";
+                valid = false;
+            }
+
+            if (skills.length === 0) {
+                skillError.innerText = "Select at least one skill";
+                valid = false;
+            }
+
+            if (course === "") {
+                courseError.innerText = "Select course";
+                valid = false;
+            }
+
+            if (resume === "") {
+                resumeError.innerText = "Upload resume";
+                valid = false;
+            }
+
+            if (valid) {
+                let student = {
+                    name, email, age,
+                    gender: gender.value,
+                    skills,
+                    course
+                };
+
+                document.getElementById("result").innerHTML = `
+                <h3>Registration Successful</h3>
+                <ul>
+                    <li>Name: ${student.name}</li>
+                    <li>Email: ${student.email}</li>
+                    <li>Age: ${student.age}</li>
+                    <li>Gender: ${student.gender}</li>
+                    <li>Skills: ${student.skills.join(", ")}</li>
+                    <li>Course: ${student.course}</li>
+                </ul>
+            `;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
