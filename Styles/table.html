@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Class Timetable</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f2f4f7;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            text-align: center;
+        }
+
+        th,
+        td {
+            border: 2px solid #3b82f6;
+            padding: 15px;
+        }
+
+        th {
+            background: #cfe2ff;
+        }
+
+        .day {
+            background: #e5e7eb;
+            font-weight: bold;
+        }
+
+        .class {
+            background: #fff7cc;
+        }
+
+        .lunch {
+            background: #d1d5db;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <tr>
+            <th>Day</th>
+            <th>10:00 - 11:00</th>
+            <th>Lunch</th>
+            <th>12:00 - 01:00</th>
+        </tr>
+
+        <tr>
+            <td class="day">Mon</td>
+            <td class="class">OS</td>
+            <td class="lunch">Lunch</td>
+            <td class="class">DBMS</td>
+        </tr>
+
+        <tr>
+            <td class="day">Tue</td>
+            <td class="class">CN</td>
+            <td class="lunch">Lunch</td>
+            <td class="class">DAA</td>
+        </tr>
+
+        <tr>
+            <td class="day">Wed</td>
+            <td class="class">AI</td>
+            <td class="lunch">Lunch</td>
+            <td class="class">ML</td>
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

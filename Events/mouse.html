@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard Mouse Events</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 150px 150px;
+            gap: 20px;
+        }
+
+        .button {
+            height: 100px;
+            background: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function clickColor(id, color) {
+            document.getElementById(id).style.background = color;
+        }
+
+        function hoverColor(id, color) {
+            document.getElementById(id).style.background = color;
+        }
+
+        function resetColor(id) {
+            document.getElementById(id).style.background = "lightblue";
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <div class="button" id="blue" onclick="clickColor('blue','blue')" onmouseover="hoverColor('blue','#8ecae6')"
+            onmousemove="hoverColor('blue','#5fa8d3')" onmouseout="resetColor('blue')">
+            Blue
+        </div>
+
+        <div class="button" id="yellow" onclick="clickColor('yellow','yellow')"
+            onmouseover="hoverColor('yellow','#fff3b0')" onmousemove="hoverColor('yellow','#ffd166')"
+            onmouseout="resetColor('yellow')">
+            Yellow
+        </div>
+
+        <div class="button" id="red" onclick="clickColor('red','red')" onmouseover="hoverColor('red','#ffadad')"
+            onmousemove="hoverColor('red','#ff6b6b')" onmouseout="resetColor('red')">
+            Red
+        </div>
+
+        <div class="button" id="green" onclick="clickColor('green','green')" onmouseover="hoverColor('green','#caffbf')"
+            onmousemove="hoverColor('green','#80ed99')" onmouseout="resetColor('green')">
+            Green
+        </div>
+
+    </div>
+
+</body>
+
+</html>

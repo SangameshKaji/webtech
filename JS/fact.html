@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <script>
+        function show() {
+
+            var i, no, fact;
+            fact = 1;
+            no = Number(document.getElementById("num").value);
+            for (i = 1; i <= no; i++) {
+                fact = fact * i;
+            }
+            document.getElementById("answer").value = fact;
+        }
+    </script>
+</head>
+
+<body bgcolor="pink">
+    <h1 style=color:blue;text-align:center>Factorial Program Example</h1>
+    <center>
+        <p style=color:red>Enter Num: <input id="num">
+            <button style=color:green; onclick="show()">Factorial</button>
+            <input id="answer">
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mouse Events Example</title>
+
+    <style>
+        h2 {
+            text-align: center;
+            color: blue;
+            cursor: pointer;
+        }
+
+        p {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body onclick="clickFun()">
+    <h2 onmouseover="overFun()" onmouseout="outFun()">
+        Mouse Events Example
+    </h2>
+
+    <p id="msg">Perform mouse action</p>
+
+    <script>
+        function clickFun() {
+            document.getElementById("msg").innerText = "Mouse Clicked";
+        }
+
+        function overFun() {
+            document.getElementById("msg").innerText = "Mouse Over";
+        }
+
+        function outFun() {
+            document.getElementById("msg").innerText = "Mouse Out";
+        }
+    </script>
+
+</body>
+
+</html>
