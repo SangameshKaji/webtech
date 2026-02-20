@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Income & Tax Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #e6e6e6;
+        }
+
+        .main-box {
+            width: 700px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: darkred;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .sub-header {
+            background: #222;
+
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #333;
+            color: white;
+            border-bottom: 1px solid #444;
+        }
+
+        .row.light {
+            background: #f5f5f5;
+            color: black;
+        }
+
+        .row span {
+            width: 60%;
+        }
+
+        .row input,
+        .row select {
+            width: 35%;
+
+            padding: 5px;
+        }
+
+        .tax-header {
+            background: darkred;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            text-align: center;
+            padding: 15px;
+        }
+
+        button {
+            padding: 8px 20px;
+            background: darkgreen;
+            color: white;
+            border: none;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .reset {
+            background: darkred;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-box">
+        <div class="header">
+            TAXMANN'S
+        </div>
+
+        <div class="sub-header">
+            INCOME & TAX CALCULATOR
+        </div>
+
+        <div class="row">
+            <span>Step 1 : Assessment Year</span>
+            <select>
+
+                <option>2025-26</option>
+                <option>2024-25</option>
+                <option>2023-24</option>
+                <option>2022-23</option>
+                <option>2022-21</option>
+
+            </select>
+        </div>
+        <div class="row">
+            <span>Step 2 : Tax Payer</span>
+            <select>
+                <option>Individual</option>
+                <option>Company</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <span>Step 3 : Male / Female / Senior Citizen</span>
+            <select>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Senior Citizen</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <span>Step 4 : Residential Status</span>
+            <select>
+
+                <option>Resident</option>
+                <option>Non-Resident (NRI)</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <span>Step 5 : Net Taxable Income</span>
+            <input type="number" id="income">
+        </div>
+
+        <div class="tax-header">
+            YOUR TAX COMPUTATION
+        </div>
+
+        <div class="row light">
+            <span>Income Tax</span>
+            <input type="text" id="tax" readonly>
+        </div>
+
+        <div class="row light">
+            <span>Surcharge</span>
+            <input type="text" value="0" readonly>
+        </div>
+
+        <div class="row light">
+            <span>Health and Education Cess @ 4%</span>
+            <input type="text" id="cess" readonly>
+        </div>
+
+        <div class="row light">
+            <span>Total Tax Liability</span>
+            <input type="text" id="total" readonly>
+        </div>
+
+        <div class="buttons">
+            <button onclick="calculateTax()">Calculate</button>
+            <button onclick="resetForm()" class="reset">Reset</button>
+        </div>
+
+    </div>
+    <script>
+        function calculateTax() {
+            let income = parseFloat(document.getElementById("income").value);
+            let tax = 0;
+
+            if (income <= 250000) { tax = 0; } else if (income <= 500000) { tax = (income - 250000) * 0.05; } else if (income
+                <= 1000000) { tax = (250000 * 0.05) + (income - 500000) * 0.20; } else {
+                tax = (250000 * 0.05) + (500000 * 0.20) +
+                    (income - 1000000) * 0.30;
+            } let cess = tax * 0.04; let total = tax + cess;
+            document.getElementById("tax").value = tax.toFixed(2); document.getElementById("cess").value = cess.toFixed(2);
+            document.getElementById("total").value = total.toFixed(2);
+        } function resetForm() {
+            document.getElementById("income").value = ""; document.getElementById("tax").value = "";
+            document.getElementById("cess").value = ""; document.getElementById("total").value = "";
+        }
+    </script>
+</body>
+
+</html>
